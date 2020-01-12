@@ -45,6 +45,13 @@
 <?= $this->section('extra-js') ?>
 <script>
 $(document).ready(function () {
+
+    $.ajaxSetup({
+	    headers: {
+	        'X-CSRF-TOKEN': $('meta[name="csrf_token_name"]').attr('content')
+	    }
+	});
+
     var dataTableBook = $('#data-table-book').DataTable({
         // "processing": true,
         // "serverSide": true,
