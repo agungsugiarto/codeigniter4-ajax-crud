@@ -21,6 +21,7 @@
                                 <table id="data-table-book" class="table table-striped dataTable">
                                     <thead>
                                         <tr role="row">
+                                            <th>Id</th>
                                             <th>Title</th>
                                             <th>Author</th>
                                             <th>Description</th>
@@ -53,16 +54,18 @@ $(document).ready(function () {
 	});
 
     var dataTableBook = $('#data-table-book').DataTable({
-        // "processing": true,
-        // "serverSide": true,
-        "ajax": {
-            url: "<?= route_to('book') ?>",
-            "data": function (d) {
-                var info = $('#data-table-book').DataTable().page.info();
-                d.page = (info.page + 1);
-            },
+        serverSide : true,
+        processing: true,
+        ordering : true,
+        ajax : {
+            url: "<?= base_url('book') ?>",
+            method : 'post'
         },
-        "columns": [{
+        "columns": [
+            {
+                "data": "id"
+            },
+            {
                 "data": "title"
             },
             {
@@ -75,14 +78,13 @@ $(document).ready(function () {
                 "data": "status"
             },
             {
-                "data": function (data) {
-                    return '<button type="button" class="btn btn-warning btn-xs btn-edit" data-id="' + data.id + '">Edit</button> <button type="button" class="btn btn-danger btn-xs btn-delete" data-id="' + data.id + '">Delete</button>';
-                }
+                "data": "action"
             }
         ],
         "columnDefs": [{
-            "width": "80px",
-            "targets": 4
+            width : '80px',
+            targets : 5,
+            orderable : false
         }, ]
     });
 
