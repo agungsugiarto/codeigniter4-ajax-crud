@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 
 class BookModel extends Model
 {
-    protected $table      = 'books';
+    protected $table = 'books';
     protected $primaryKey = 'id';
 
     protected $returnType = 'array';
@@ -15,16 +15,16 @@ class BookModel extends Model
     protected $allowedFields = ['title', 'author', 'description', 'status'];
 
     protected $useTimestamps = true;
-    protected $createdField  = 'created_at';
-    protected $updatedField  = 'updated_at';
-    protected $deletedField  = 'deleted_at';
+    protected $createdField = 'created_at';
+    protected $updatedField = 'updated_at';
+    protected $deletedField = 'deleted_at';
 
     protected $validationRules = [
-        'title' => 'required|min_length[10]|max_length[60]',
-        'author' => 'required',
+        'title'       => 'required|min_length[10]|max_length[60]',
+        'author'      => 'required',
         'description' => 'required|min_length[10]|max_length[200]',
-        'status' => 'required'
+        'status'      => 'required',
     ];
     protected $validationMessages = [];
-    protected $skipValidation     = false;
+    protected $skipValidation = false;
 }

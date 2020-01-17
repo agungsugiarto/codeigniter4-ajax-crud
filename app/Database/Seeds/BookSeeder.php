@@ -7,19 +7,18 @@ use CodeIgniter\Database\Seeder;
 use Faker;
 
 class BookSeeder extends Seeder
-{    
+{
     public function run()
     {
         $faker = Faker\Factory::create();
         $books = new BookModel();
 
-        for ($i = 0; $i < 50; $i++)
-        {
+        for ($i = 0; $i < 50; $i++) {
             $data = [
-                'title' => $faker->sentence,
-                'author' => $faker->name,
+                'title'       => $faker->sentence,
+                'author'      => $faker->name,
                 'description' => $faker->realText(),
-                'status' => $faker->randomElement(['publish', 'pending', 'draft']),
+                'status'      => $faker->randomElement(['publish', 'pending', 'draft']),
             ];
             $books->save($data);
         }
