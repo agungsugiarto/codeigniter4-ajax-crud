@@ -1,12 +1,13 @@
-<?php namespace App\Controllers;
+<?php
+
+namespace App\Controllers;
 
 class Home extends BaseController
 {
-	public function index()
-	{
-		return view('BookView');
-	}
+    public function index()
+    {
+        return view('BookView');
+    }
 
-	//--------------------------------------------------------------------
-
+    //--------------------------------------------------------------------
 }
