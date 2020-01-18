@@ -2,7 +2,6 @@
 
 namespace App\Database\Seeds;
 
-use App\Models\BookModel;
 use CodeIgniter\Database\Seeder;
 use Faker;
 
@@ -19,7 +18,7 @@ class BookSeeder extends Seeder
                 'description' => $faker->realText(),
                 'status'      => $faker->randomElement(['publish', 'pending', 'draft']),
                 'created_at'  => date('Y-m-d H:i:s'),
-                'updated_at'  => date('Y-m-d H:i:s')
+                'updated_at'  => date('Y-m-d H:i:s'),
             ];
 
             $data[] = $seed;
