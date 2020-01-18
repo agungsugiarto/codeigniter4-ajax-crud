@@ -58,7 +58,7 @@ $(document).ready(function () {
         processing: true,
         ordering : true,
         ajax : {
-            url: "<?= base_url('book') ?>",
+            url: "<?= base_url('book/show') ?>",
             method : 'post'
         },
         "columns": [

@@ -73,10 +73,11 @@ $routes->setAutoRoute(false);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
 $routes->get('/', 'BookController::index');
 
 $routes->group('book', function ($routes) {
-    $routes->post('/', 'BookController::index');
+    $routes->post('show', 'BookController::show');
     $routes->post('store', 'BookController::store');
     $routes->get('edit/(:segment)', 'BookController::edit/$1');
     $routes->put('update/(:segment)', 'BookController::update/$1');

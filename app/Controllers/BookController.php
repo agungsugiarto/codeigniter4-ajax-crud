@@ -26,7 +26,12 @@ class BookController extends Controller
      */
     public function index()
     {
-        $model = new BookModel();
+        return view('BookView');
+    }
+
+    public function show()
+    {
+                $model = new BookModel();
 
         if ($this->request->isAJAX()) {
             $columns = [
@@ -92,8 +97,6 @@ class BookController extends Controller
                 'data'            => $data,
             ]);
         }
-
-        return view('BookView');
     }
 
     /**
