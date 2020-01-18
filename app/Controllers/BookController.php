@@ -31,7 +31,7 @@ class BookController extends Controller
 
     public function show()
     {
-                $model = new BookModel();
+        $model = new BookModel();
 
         if ($this->request->isAJAX()) {
             $columns = [
