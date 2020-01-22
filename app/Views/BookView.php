@@ -184,12 +184,18 @@ $(document).ready(function () {
                         'DELETE',
                         [],
                         function (response) {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
-                            dataTableBook.ajax.reload();
+                            if (response.errors) {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: response.messages
+                                })
+                            } else {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: response.messages
+                                })
+                                dataTableBook.ajax.reload();
+                            }
                         }
                     )
                 }

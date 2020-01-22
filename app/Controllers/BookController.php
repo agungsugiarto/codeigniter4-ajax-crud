@@ -156,6 +156,10 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        return $this->model->delete($id);
+        if (!$this->model->delete($id)) {
+            return $this->response->setJSON(['errors' => $this->model->errors()]);
+        }
+
+        return $this->response->setJSON(['messages' => 'Success delete book']);
     }
 }
