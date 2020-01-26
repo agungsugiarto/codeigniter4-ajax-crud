@@ -127,7 +127,7 @@ $(document).ready(function () {
                     editForm.find('input[name="title"]').val(response.data.title);
                     editForm.find('input[name="author"]').val(response.data.author);
                     editForm.find('textarea[name="description"]').val(response.data.description);
-                    editForm.find('select[name="status"]').val(response.data.status);
+                    editForm.find('select[name="status_id"]').val(response.data.status_id);
                     $("#book_id").val(response.data.id);
                     $("#modal-edit-book").modal('show');
                 }

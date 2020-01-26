@@ -17,11 +17,11 @@
                         <input type="text" class="form-control" name="author" placeholder="Author for book">
                     </div>
                     <div class="form-group">
-                        <select class="form-control select2" id="status-save" name="status">
+                        <select class="form-control select2" id="status-save" name="status_id">
                             <option value="" disabled selected>=PILIH STATUS=</option>
-                            <option value="publish">Publish</option>
-                            <option value="draft">Draft</option>
-                            <option value="pending">Pending</option>
+                            <option id="publish" value="1">Publish</option>
+                            <option id="pending" value="2">Pending</option>
+                            <option id="draft" value="3">Draft</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -57,10 +57,10 @@
                         <input type="text" class="form-control" name="author" placeholder="Author for book">
                     </div>
                     <div class="form-group">
-                        <select class="form-control select2" id="status" name="status">
-                            <option id="publish" value="publish">Publish</option>
-                            <option id="praft" value="draft">Draft</option>
-                            <option id="pending" value="pending">Pending</option>
+                        <select class="form-control select2" id="status" name="status_id">
+                            <option id="publish" value="1">Publish</option>
+                            <option id="pending" value="2">Pending</option>
+                            <option id="draft" value="3">Draft</option>
                         </select>
                     </div>
                     <div class="form-group">
