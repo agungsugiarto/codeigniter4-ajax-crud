@@ -10,23 +10,38 @@ class CreateContactTable extends Migration
     {
         $this->forge->addField([
             'id'          => ['type' => 'INT', 'constraint' => 5, 'unsigned' => true, 'auto_increment' => true],
-            'title'       => ['type' => 'VARCHAR', 'constraint' => '100'],
-            'author'      => ['type' =>'VARCHAR', 'constraint' => 100, 'default' => 'King of Town'],
-            'description' => ['type' => 'TEXT', 'null' => true],
-            'status'      => ['type' => 'ENUM', 'constraint' => ['publish', 'pending', 'draft'], 'default' => 'pending'],
+            'status'      => ['type' => 'VARCHAR', 'constraint' => 100],
             'created_at'  => ['type' => 'datetime', 'null' => true],
             'updated_at'  => ['type' => 'datetime', 'null' => true],
             'deleted_at'  => ['type' => 'datetime', 'null' => true],
         ]);
 
         $this->forge->addPrimaryKey('id');
+        $this->forge->createTable('status', false, ['ENGINE' => 'InnoDB']);
+
+        $this->forge->addField([
+            'id'          => ['type' => 'INT', 'constraint' => 5, 'unsigned' => true, 'auto_increment' => true],
+            'status_id'   => ['type' => 'INT', 'constraint' => 5, 'unsigned' => true, 'null' => true],
+            'title'       => ['type' => 'VARCHAR', 'constraint' => '100'],
+            'author'      => ['type' => 'VARCHAR', 'constraint' => 100, 'default' => 'King of Town'],
+            'description' => ['type' => 'TEXT', 'null' => true],
+            'created_at'  => ['type' => 'datetime', 'null' => true],
+            'updated_at'  => ['type' => 'datetime', 'null' => true],
+            'deleted_at'  => ['type' => 'datetime', 'null' => true],
+        ]);
+
+        $this->forge->addPrimaryKey('id');
+        $this->forge->addKey('status_id');
+        $this->forge->addForeignKey('status_id', 'status', 'id', false, 'CASCADE');
         $this->forge->createTable('books', false, ['ENGINE' => 'InnoDB']);
+
     }
 
     //--------------------------------------------------------------------
 
     public function down()
     {
+        $this->forge->dropTable('status');
         $this->forge->dropTable('books');
     }
 }

@@ -29,10 +29,15 @@ class BookController extends Controller
         return view('BookView');
     }
 
+    /**
+     * Tampilkan daftar index.
+     *
+     * @param \CodeIgniter\HTTP\RequestInterface
+     *
+     * @return \CodeIgniter\Http\Response
+     */
     public function show()
     {
-        $model = new BookModel();
-
         if ($this->request->isAJAX()) {
             $columns = [
                 0 => 'id',
@@ -51,27 +56,13 @@ class BookController extends Controller
             $search = $this->request->getPost('search[value]');
 
             if (empty($search)) {
-                $books = $model->orderBy($order, $dir)
-                               ->findAll($limit, $start);
-
                 $draw = $this->request->getPost('draw');
+                $books = $this->model->listAll($order, $dir, $limit, $start);
             } else {
                 $draw = $this->request->getPost('draw');
-
-                $books = $model->orderBy($order, $dir)
-                               ->like('title', $search)
-                               ->orLike('author', $search)
-                               ->orLike('description', $search)
-                               ->orLike('status', $search)
-                               ->findAll($limit, $start);
-
-                $Filtered = $model->like('title', $search)
-                                  ->orLike('author', $search)
-                                  ->orLike('description', $search)
-                                  ->orLike('status', $search)
-                                  ->countAllResults();
-
-                $totalFiltered = $Filtered;
+                $books = $this->model->listSearchBook($order, $dir, $limit, $start, $search);
+                $filtered = $this->model->countSearchBook($search);
+                $totalFiltered = $filtered;
             }
 
             if (!empty($books)) {
