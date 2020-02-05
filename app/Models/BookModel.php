@@ -32,12 +32,14 @@ class BookModel extends Model
         return $this->db->table('books as b')
                     ->select('b.id, b.title, b.author, b.description, s.status')
                     ->join('status as s', 'b.status_id = s.id')
-                    ->where('b.deleted_at =', NULL)
-                    ->where('s.deleted_at =', NULL)
+                    ->where([
+                        'b.deleted_at =' => null,
+                        's.deleted_at =' => null,
+                    ])
                     ->limit($limit, $start)
                     ->orderBy($order, $dir)
                     ->get()
-                    ->getResult($this->returnType);
+                    ->getResultArray();
     }
 
     public function listSearchBook($order, $dir, $limit, $start, $search)
@@ -45,29 +47,36 @@ class BookModel extends Model
         return $this->db->table('books as b')
                     ->select('b.id, b.title, b.author, b.description, s.status')
                     ->join('status as s', 'b.status_id = s.id')
-                    ->where('b.deleted_at =', NULL)
-                    ->where('s.deleted_at =', NULL)
-                    ->like('b.title', $search)
-                    ->orLike('b.author', $search)
-                    ->orLike('b.description', $search)
-                    ->orLike('s.status', $search)
+                    ->orLike([
+                        'b.title'       => $search,
+                        'b.author'      => $search,
+                        'b.description' => $search,
+                        's.status'      => $search
+                    ])
+                    ->where([
+                        'b.deleted_at =' => null,
+                        's.deleted_at =' => null,
+                    ])
                     ->limit($limit, $start)
                     ->orderBy($order, $dir)
                     ->get()
-                    ->getResult($this->returnType);
+                    ->getResultArray();
     }
 
     public function countSearchBook($search)
     {
         return $this->db->table('books as b')
-                    ->select('b.id, b.title, b.author, b.description, s.status')
                     ->join('status as s', 'b.status_id = s.id')
-                    ->where('b.deleted_at =', NULL)
-                    ->where('s.deleted_at =', NULL)
-                    ->like('b.title', $search)
-                    ->orLike('b.author', $search)
-                    ->orLike('b.description', $search)
-                    ->orLike('s.status', $search)
-                    ->countAll();
+                    ->orLike([
+                        'b.title'       => $search,
+                        'b.author'      => $search,
+                        'b.description' => $search,
+                        's.status'      => $search
+                    ])
+                    ->where([
+                        'b.deleted_at =' => null,
+                        's.deleted_at =' => null,
+                    ])
+                    ->countAllResults();
     }
 }
