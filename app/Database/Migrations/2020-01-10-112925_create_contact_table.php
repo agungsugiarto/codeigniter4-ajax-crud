@@ -34,7 +34,6 @@ class CreateContactTable extends Migration
         $this->forge->addKey('status_id');
         $this->forge->addForeignKey('status_id', 'status', 'id', false, 'CASCADE');
         $this->forge->createTable('books', false, ['ENGINE' => 'InnoDB']);
-
     }
 
     //--------------------------------------------------------------------

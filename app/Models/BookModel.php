@@ -51,7 +51,7 @@ class BookModel extends Model
                         'b.title'       => $search,
                         'b.author'      => $search,
                         'b.description' => $search,
-                        's.status'      => $search
+                        's.status'      => $search,
                     ])
                     ->where([
                         'b.deleted_at =' => null,
@@ -71,7 +71,7 @@ class BookModel extends Model
                         'b.title'       => $search,
                         'b.author'      => $search,
                         'b.description' => $search,
-                        's.status'      => $search
+                        's.status'      => $search,
                     ])
                     ->where([
                         'b.deleted_at =' => null,
