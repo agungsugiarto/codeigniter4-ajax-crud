@@ -20,6 +20,7 @@ class BookModel extends Model
     protected $deletedField = 'deleted_at';
 
     protected $validationRules = [
+        'status_id'   => 'required|numeric',
         'title'       => 'required|min_length[10]|max_length[60]',
         'author'      => 'required',
         'description' => 'required|min_length[10]|max_length[200]',
@@ -54,8 +55,8 @@ class BookModel extends Model
                         's.status'      => $search,
                     ])
                     ->where([
-                        'b.deleted_at =' => null,
-                        's.deleted_at =' => null,
+                        'b.deleted_at =' => NULL,
+                        's.deleted_at =' => NULL,
                     ])
                     ->limit($limit, $start)
                     ->orderBy($order, $dir)
@@ -67,15 +68,15 @@ class BookModel extends Model
     {
         return $this->db->table('books as b')
                     ->join('status as s', 'b.status_id = s.id')
+                    ->where([
+                        'b.deleted_at =' => NULL,
+                        's.deleted_at =' => NULL,
+                    ])
                     ->orLike([
                         'b.title'       => $search,
                         'b.author'      => $search,
                         'b.description' => $search,
                         's.status'      => $search,
-                    ])
-                    ->where([
-                        'b.deleted_at =' => null,
-                        's.deleted_at =' => null,
                     ])
                     ->countAllResults();
     }

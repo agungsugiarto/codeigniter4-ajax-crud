@@ -17,8 +17,8 @@
                         <input type="text" class="form-control" name="author" placeholder="Author for book">
                     </div>
                     <div class="form-group">
-                        <select class="form-control select2" id="status-save" name="status_id">
-                            <option value="" disabled selected>=PILIH STATUS=</option>
+                        <select class="form-control select2" id="status" name="status_id">
+                            <option value="" disabled selected>--Choose Status--</option>
                             <option id="publish" value="1">Publish</option>
                             <option id="pending" value="2">Pending</option>
                             <option id="draft" value="3">Draft</option>
@@ -30,7 +30,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary btn-sm" id="btn-save-book">Save Book</button>
             </div>
         </div>
@@ -69,7 +69,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary btn-sm" id="btn-update-book">Update Book</button>
             </div>
         </div>

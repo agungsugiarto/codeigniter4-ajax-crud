@@ -14,7 +14,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <title>AdminLTE 3 | Top Navigation</title>
 
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ionicons@4.6.3/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.0/css/all.min.css">
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 
@@ -31,7 +31,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
-                <a href="../../index3.html" class="navbar-brand">
+                <a href="<?= route_to('resource') ?>" class="navbar-brand">
                     <img src="https://cdn.jsdelivr.net/npm/admin-lte@3.0.1/dist/img/AdminLTELogo.png"
                         alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                     <span class="brand-text font-weight-light">Dashboard</span>
@@ -47,7 +47,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- Left navbar links -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a href="index3.html" class="nav-link">Home</a>
+                            <a href="<?= base_url() ?>" class="nav-link">Home</a>
                         </li>
                     </ul>
                 </div>
@@ -67,8 +67,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </div><!-- /.col -->
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Crud</li>
+                                <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
+                                <li class="breadcrumb-item active">Resource</li>
                             </ol>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

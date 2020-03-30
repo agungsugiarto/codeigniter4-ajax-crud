@@ -74,14 +74,13 @@ $routes->setAutoRoute(false);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 
-$routes->get('/', 'BookController::index');
+$routes->get('/', 'Home::index');
 
-$routes->group('book', function ($routes) {
-    $routes->post('show', 'BookController::show');
-    $routes->post('store', 'BookController::store');
-    $routes->get('edit/(:segment)', 'BookController::edit/$1');
-    $routes->put('update/(:segment)', 'BookController::update/$1');
-    $routes->delete('destroy/(:num)', 'BookController::destroy/$1');
+$routes->group('book', function($routes) {
+    $routes->post('datatable', 'BookController::datatable', ['as' => 'datatable']);
+    $routes->resource('resource', [
+        'controller' => 'BookController',
+    ]);
 });
 
 /**
