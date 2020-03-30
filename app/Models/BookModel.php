@@ -55,8 +55,8 @@ class BookModel extends Model
                         's.status'      => $search,
                     ])
                     ->where([
-                        'b.deleted_at =' => NULL,
-                        's.deleted_at =' => NULL,
+                        'b.deleted_at =' => null,
+                        's.deleted_at =' => null,
                     ])
                     ->limit($limit, $start)
                     ->orderBy($order, $dir)
@@ -69,8 +69,8 @@ class BookModel extends Model
         return $this->db->table('books as b')
                     ->join('status as s', 'b.status_id = s.id')
                     ->where([
-                        'b.deleted_at =' => NULL,
-                        's.deleted_at =' => NULL,
+                        'b.deleted_at =' => null,
+                        's.deleted_at =' => null,
                     ])
                     ->orLike([
                         'b.title'       => $search,

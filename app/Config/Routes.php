@@ -76,7 +76,7 @@ $routes->setAutoRoute(false);
 
 $routes->get('/', 'Home::index');
 
-$routes->group('book', function($routes) {
+$routes->group('book', function ($routes) {
     $routes->post('datatable', 'BookController::datatable', ['as' => 'datatable']);
     $routes->resource('resource', [
         'controller' => 'BookController',
