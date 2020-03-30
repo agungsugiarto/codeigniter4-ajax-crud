@@ -214,7 +214,7 @@ $(document).ready(function () {
                         icon: 'success',
                         title: textStatus,
                     });
-                    tablePermission.ajax.reload();
+                    dataTableBook.ajax.reload();
                 }).fail((error) => {
                     Toast.fire({
                         icon: 'error',
