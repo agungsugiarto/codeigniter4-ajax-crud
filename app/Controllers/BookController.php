@@ -3,8 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\BookModel;
-use CodeIgniter\Controller;
 use CodeIgniter\API\ResponseTrait;
+use CodeIgniter\Controller;
 
 class BookController extends Controller
 {
