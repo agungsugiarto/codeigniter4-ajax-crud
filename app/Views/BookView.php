@@ -62,7 +62,7 @@ $(document).ready(function () {
         order: [[1, 'asc']],
         columnDefs: [{
             orderable: false,
-            targets: [0,4,5]
+            targets: [0,5]
         }],
 
         ajax : {
