@@ -6,10 +6,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">DataTable ajax crud CodeIgniter4</h3>
+                    <h3 class="card-title"> CodeIgniter4 - DataTable Serverside with ajax crud</h3>
                     <div class="float-right">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-block btn-primary" id="create-book" data-toggle="modal" data-target="#modal-create-book"><i class="fa fa-plus"></i>Create Book</button>
+                            <button type="button" class="btn btn-sm btn-block btn-primary" id="create-book" data-toggle="modal" data-target="#modal-create-book"><i class="fa fa-plus"></i> Create Book</button>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                                     <table id="data-table-book" class="table table-striped dataTable">
                                         <thead>
                                             <tr role="row">
-                                                <th>Id</th>
+                                                <th>No</th>
                                                 <th>Title</th>
                                                 <th>Author</th>
                                                 <th>Description</th>
@@ -59,14 +59,20 @@ $(document).ready(function () {
         autoWidth: false,
         serverSide : true,
         processing: true,
-        ordering : true,
+        order: [[1, 'asc']],
+        columnDefs: [{
+            orderable: false,
+            targets: [0,4,5]
+        }],
+
         ajax : {
             url: "<?= route_to('datatable') ?>",
-            method : 'post'
+            method : 'POST'
         },
-        "columns": [
+
+        columns: [
             {
-                "data": "id"
+                "data": null
             },
             {
                 "data": "title"
@@ -102,12 +108,16 @@ $(document).ready(function () {
                             </td>`
                 }
             }
-        ],
-        "columnDefs": [{
-            width : '80px',
-            targets : 5,
-            orderable : false
-        }, ]
+        ]
+    });
+
+    dataTableBook.on('draw.dt', function() {
+        var PageInfo = $('#data-table-book').DataTable().page.info();
+        dataTableBook.column(0, {
+            page: 'current'
+        }).nodes().each(function(cell, i) {
+            cell.innerHTML = i + 1 + PageInfo.start;
+        });
     });
 
     $(document).on('click', '#btn-save-book', function () {

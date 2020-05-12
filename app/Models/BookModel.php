@@ -28,56 +28,78 @@ class BookModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
-    public function listAll($order, $dir, $limit, $start)
+    /**
+     * Find with paginate data.
+     *
+     * @param int $length
+     * @param int $start
+     * @param string $order 
+     * @param string $dir
+     * @param string $keyword
+     *
+     * @return array
+     */
+    public function findPaginatedData(string $order, string $dir, int $length, int $start, string $keyword = ''): array
     {
-        return $this->db->table('books as b')
-                    ->select('b.id, b.title, b.author, b.description, s.status')
-                    ->join('status as s', 'b.status_id = s.id')
-                    ->where([
-                        'b.deleted_at =' => null,
-                        's.deleted_at =' => null,
-                    ])
-                    ->limit($limit, $start)
-                    ->orderBy($order, $dir)
-                    ->get()
-                    ->getResultArray();
+        return $this->builder()
+            ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')
+            ->join('status', 'books.status_id = status.id')
+            ->groupStart()
+                ->like('title', $keyword)
+                ->orLike('author', $keyword)
+                ->orLike('description', $keyword)
+                ->orLike('status', $keyword)
+            ->groupEnd()
+            ->where([
+                'books.deleted_at'  => null,
+                'status.deleted_at' => null,
+            ])
+            ->orderBy($order, $dir)
+            ->limit($length, $start)
+            ->get()
+            ->getResultObject();
+    }
+    
+    /**
+     * Find with count all data.
+     *
+     * @param string $keyword
+     *
+     * @return int
+     */
+    public function countFindData(string $keyword = ''): int
+    {
+        return $this->builder()
+            ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')
+            ->join('status', 'books.status_id = status.id')
+            ->groupStart()
+                ->like('title', $keyword)
+                ->orLike('author', $keyword)
+                ->orLike('description', $keyword)
+                ->orLike('status', $keyword)
+            ->groupEnd()
+            ->where([
+                'books.deleted_at'  => null,
+                'status.deleted_at' => null,
+            ])
+            ->countAllResults();
     }
 
-    public function listSearchBook($order, $dir, $limit, $start, $search)
+        
+    /**
+     * Total all.
+     *
+     * @return int
+     */
+    public function totalAll(): int
     {
-        return $this->db->table('books as b')
-                    ->select('b.id, b.title, b.author, b.description, s.status')
-                    ->join('status as s', 'b.status_id = s.id')
-                    ->orLike([
-                        'b.title'       => $search,
-                        'b.author'      => $search,
-                        'b.description' => $search,
-                        's.status'      => $search,
-                    ])
-                    ->where([
-                        'b.deleted_at =' => null,
-                        's.deleted_at =' => null,
-                    ])
-                    ->limit($limit, $start)
-                    ->orderBy($order, $dir)
-                    ->get()
-                    ->getResultArray();
-    }
-
-    public function countSearchBook($search)
-    {
-        return $this->db->table('books as b')
-                    ->join('status as s', 'b.status_id = s.id')
-                    ->where([
-                        'b.deleted_at =' => null,
-                        's.deleted_at =' => null,
-                    ])
-                    ->orLike([
-                        'b.title'       => $search,
-                        'b.author'      => $search,
-                        'b.description' => $search,
-                        's.status'      => $search,
-                    ])
-                    ->countAllResults();
+        return $this->builder()
+            ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')
+            ->join('status', 'books.status_id = status.id')
+            ->where([
+                'books.deleted_at'  => null,
+                'status.deleted_at' => null,
+            ])
+            ->countAllResults();
     }
 }

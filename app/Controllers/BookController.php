@@ -110,56 +110,25 @@ class BookController extends Controller
     public function datatable()
     {
         if ($this->request->isAJAX()) {
-            if ($this->request->isAJAX()) {
-                $columns = [
-                    0 => 'id',
-                    1 => 'title',
-                    2 => 'author',
-                    3 => 'description',
-                    4 => 'status',
-                ];
+            $columns = [
+                1 => 'title',
+                2 => 'author',
+                3 => 'description',
+                4 => 'status',
+            ];
 
-                $totalData = $this->model->countAllResults();
-                $totalFiltered = $totalData;
-                $limit = $this->request->getPost('length');
-                $start = $this->request->getPost('start');
-                $order = $columns[$this->request->getPost('order[0][column]')];
-                $dir = $this->request->getPost('order[0][dir]');
-                $search = $this->request->getPost('search[value]');
+            $start = $this->request->getPost('start');
+            $length = $this->request->getPost('length');
+            $search = $this->request->getPost('search[value]');
+            $order = $columns[$this->request->getPost('order[0][column]')];
+            $dir = $this->request->getPost('order[0][dir]');
 
-                if (empty($search)) {
-                    $draw = $this->request->getPost('draw');
-                    $books = $this->model->listAll($order, $dir, $limit, $start);
-                } else {
-                    $draw = $this->request->getPost('draw');
-                    $books = $this->model->listSearchBook($order, $dir, $limit, $start, $search);
-                    $filtered = $this->model->countSearchBook($search);
-                    $totalFiltered = $filtered;
-                }
-
-                if (!empty($books)) {
-                    foreach ($books as $book) {
-                        $nested['id'] = $book['id'];
-                        $nested['title'] = $book['title'];
-                        $nested['author'] = $book['author'];
-                        $nested['description'] = $book['description'];
-                        $nested['status'] = $book['status'];
-                        $nested['action'] = "<button type='button' class='btn btn-warning btn-xs btn-edit' data-id='{$book['id']}'>Edit</button> <button type='button' class='btn btn-danger btn-xs btn-delete' data-id='{$book['id']}'>Delete</button>";
-                        $data[] = $nested;
-                    }
-                } else {
-                    $data = [];
-                    $totalData = 0;
-                    $draw = 0;
-                }
-
-                return $this->response->setJSON([
-                    'draw'            => $draw,
-                    'recordsTotal'    => $totalData,
-                    'recordsFiltered' => $totalFiltered,
-                    'data'            => $data,
-                ]);
-            }
+            return $this->respond([
+                'draw'            => $this->request->getPost('draw'),
+                'recordsTotal'    => $this->model->totalAll(),
+                'recordsFiltered' => $this->model->countFindData($search),
+                'data'            => $this->model->findPaginatedData($order, $dir, $length, $start, $search),
+            ]);
         }
     }
 }

@@ -40,7 +40,7 @@ class CreateContactTable extends Migration
 
     public function down()
     {
-        $this->forge->dropTable('status');
         $this->forge->dropTable('books');
+        $this->forge->dropTable('status');
     }
 }
