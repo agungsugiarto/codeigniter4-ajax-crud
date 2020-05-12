@@ -93,7 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 Page rendered in {elapsed_time} seconds. Environment: <?= ENVIRONMENT ?>
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; <?= date('Y') ?> <a href="https:agungsugiarto.github.io">Agung Sugiarto</a>.</strong> All rights
+            <strong>Copyright &copy; <?= date('Y') ?> <a href="https://github.com/agungsugiarto">Agung Sugiarto</a>.</strong> All rights
             reserved.
         </footer>
     </div>
