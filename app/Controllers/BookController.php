@@ -107,6 +107,11 @@ class BookController extends Controller
         return $this->fail('Fail deleted');
     }
 
+    /**
+     * Function datatable.
+     * 
+     * @return CodeIgniter\Http\Response
+     */
     public function datatable()
     {
         if ($this->request->isAJAX()) {
@@ -130,5 +135,7 @@ class BookController extends Controller
                 'data'            => $this->model->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
             ]);
         }
+
+        return $this->respondNoContent();
     }
 }
