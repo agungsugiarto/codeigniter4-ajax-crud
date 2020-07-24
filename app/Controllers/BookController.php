@@ -125,9 +125,9 @@ class BookController extends Controller
 
             return $this->respond([
                 'draw'            => $this->request->getPost('draw'),
-                'recordsTotal'    => $this->model->totalAll(),
-                'recordsFiltered' => $this->model->countFindData($search),
-                'data'            => $this->model->findPaginatedData($order, $dir, $length, $start, $search),
+                'recordsTotal'    => $this->model->getResource('')->countAllResults(),
+                'recordsFiltered' => $this->model->getResource($search)->countAllResults(),
+                'data'            => $this->model->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
             ]);
         }
     }
