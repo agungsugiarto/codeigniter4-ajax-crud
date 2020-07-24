@@ -2,10 +2,12 @@
 
 namespace Config;
 
+use CodeIgniter\Config\BaseConfig;
+
 /**
  * Setup how the exception handler works.
  */
-class Exceptions
+class Exceptions extends BaseConfig
 {
     /*
      |--------------------------------------------------------------------------

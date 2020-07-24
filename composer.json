@@ -11,12 +11,13 @@
     },
     "require-dev": {
         "mikey179/vfsstream": "1.6.*",
-        "phpunit/phpunit": "^7.0"
+        "phpunit/phpunit": "^8.5"
     },
     "scripts": {
         "post-update-cmd": [
             "@composer dump-autoload"
-        ]
+        ],
+        "test": "phpunit"
     },
     "support": {
         "forum": "http://forum.codeigniter.com/",
