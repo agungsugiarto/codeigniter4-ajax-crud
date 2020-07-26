@@ -41,7 +41,7 @@ class BookModel extends Model
      * @param string $search
      * @return \CodeIgniter\Database\BaseBuilder
      */
-    public function getResource(string $search = '', string $order, string $dir, int $length, int $start)
+    public function getResource(string $search = '')
     {
         $builder = $this->builder()
             ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')
@@ -59,48 +59,6 @@ class BookModel extends Model
         return $condition->where([
             'books.deleted_at'  => null,
             'status.deleted_at' => null,
-        ])
-        ->orderBy($order, $dir)
-        ->limit($length, $start)
-        ->get()
-        ->getResultObject();
-    }
-
-    public function totalFiltered(string $search = '')
-    {
-        $builder = $this->builder()
-            ->selectCount('books.id', 'total')
-            ->join('status', 'books.status_id = status.id');
-        
-        $condition = empty($search)
-            ? $builder
-            : $builder->groupStart()
-                ->like('title', $search)
-                ->orLike('author', $search)
-                ->orLike('description', $search)
-                ->orLike('status', $search)
-            ->groupEnd();
-
-        return $condition->where([
-            'books.deleted_at'  => null,
-            'status.deleted_at' => null,
-        ])
-        ->get()
-        ->getRow()
-        ->total;
-    }
-
-    public function total()
-    {
-        return $this->builder()
-            ->selectCount('books.id', 'total')
-            ->join('status', 'books.status_id = status.id')
-            ->where([
-                'books.deleted_at'  => null,
-                'status.deleted_at' => null,
-            ])
-            ->get()
-            ->getRow()
-            ->total;
+        ]);
     }
 }
