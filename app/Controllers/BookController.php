@@ -115,11 +115,18 @@ class BookController extends Controller
             $order = BookModel::ORDERABLE[$this->request->getPost('order[0][column]')];
             $dir = $this->request->getPost('order[0][dir]');
 
+            // return $this->respond([
+            //     'draw'            => $this->request->getPost('draw'),
+            //     'recordsTotal'    => $this->model->getResource()->countAllResults(),
+            //     'recordsFiltered' => $this->model->getResource($search)->countAllResults(),
+            //     'data'            => $this->model->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
+            // ]);
+
             return $this->respond([
                 'draw'            => $this->request->getPost('draw'),
-                'recordsTotal'    => $this->model->getResource()->countAllResults(),
-                'recordsFiltered' => $this->model->getResource($search)->countAllResults(),
-                'data'            => $this->model->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
+                'recordsTotal'    => $this->model->total(),
+                'recordsFiltered' => $this->model->totalFiltered($search),
+                'data'            => $this->model->getResource($search, $order, $dir, $length, $start),
             ]);
         }
 
