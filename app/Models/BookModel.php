@@ -28,12 +28,20 @@ class BookModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
 
+    const ORDERABLE = [
+        1 => 'title',
+        2 => 'author',
+        3 => 'description',
+        4 => 'status',
+    ];
+
     /**
      * Get resource data.
      * 
      * @param string $search
+     * @return \CodeIgniter\Database\BaseBuilder
      */
-    public function getResource(string $search)
+    public function getResource(string $search = '')
     {
         $builder = $this->builder()
             ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')

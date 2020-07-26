@@ -23,8 +23,6 @@ class BookController extends Controller
     /**
      * Tampilkan daftar index.
      *
-     * @param \CodeIgniter\HTTP\RequestInterface
-     *
      * @return \CodeIgniter\Http\Response
      */
     public function index()
@@ -35,8 +33,6 @@ class BookController extends Controller
     /**
      * Tampilkan daftar index.
      *
-     * @param \CodeIgniter\HTTP\RequestInterface
-     *
      * @return \CodeIgniter\Http\Response
      */
     public function show()
@@ -45,8 +41,6 @@ class BookController extends Controller
 
     /**
      * Simpan resource ke database.
-     *
-     * @param \CodeIgniter\HTTP\RequestInterface
      *
      * @return \CodeIgniter\Http\Response
      */
@@ -115,22 +109,15 @@ class BookController extends Controller
     public function datatable()
     {
         if ($this->request->isAJAX()) {
-            $columns = [
-                1 => 'title',
-                2 => 'author',
-                3 => 'description',
-                4 => 'status',
-            ];
-
             $start = $this->request->getPost('start');
             $length = $this->request->getPost('length');
             $search = $this->request->getPost('search[value]');
-            $order = $columns[$this->request->getPost('order[0][column]')];
+            $order = BookModel::ORDERABLE[$this->request->getPost('order[0][column]')];
             $dir = $this->request->getPost('order[0][dir]');
 
             return $this->respond([
                 'draw'            => $this->request->getPost('draw'),
-                'recordsTotal'    => $this->model->getResource('')->countAllResults(),
+                'recordsTotal'    => $this->model->getResource()->countAllResults(),
                 'recordsFiltered' => $this->model->getResource($search)->countAllResults(),
                 'data'            => $this->model->getResource($search)->orderBy($order, $dir)->limit($length, $start)->get()->getResultObject(),
             ]);
