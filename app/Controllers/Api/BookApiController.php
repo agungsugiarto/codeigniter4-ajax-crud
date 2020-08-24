@@ -18,7 +18,7 @@ class BookApiController extends Controller
 
     public function __construct()
     {
-        $this->book = new BookRepository;
+        $this->book = new BookRepository();
         $this->pager = Config::get('Pager');
     }
 
@@ -30,20 +30,20 @@ class BookApiController extends Controller
     public function index()
     {
         $resource = $this->book->scope($this->request)
-            ->withCriteria([new BookCriteria])
+            ->withCriteria([new BookCriteria()])
             ->paginate($this->pager->perPage, static::withSelect());
 
         return $this->respond(static::withResponse($resource));
     }
 
     /**
-     * show
+     * show.
      *
      * @return \CodeIgniter\Http\Response
      */
     public function show($id = null)
     {
-        $resource = $this->book->withCriteria([new BookCriteria])->find($id, static::withSelect());
+        $resource = $this->book->withCriteria([new BookCriteria()])->find($id, static::withSelect());
 
         if (is_null($resource)) {
             return $this->failNotFound(sprintf('book with id %d not found', $id));
@@ -61,7 +61,7 @@ class BookApiController extends Controller
     {
         $request = $this->request->getPost(null, FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if (! $this->validate(static::rules())) {
+        if (!$this->validate(static::rules())) {
             return $this->fail($this->validator->getErrors());
         }
 
@@ -97,7 +97,7 @@ class BookApiController extends Controller
     {
         $request = $this->request->getRawInput();
 
-        if (! $this->validate(static::rules())) {
+        if (!$this->validate(static::rules())) {
             return $this->fail($this->validator->getErrors());
         }
 
@@ -121,7 +121,7 @@ class BookApiController extends Controller
     {
         $this->respondDeleted($this->book->destroy($id));
 
-        if ((new BookModel)->db->affectedRows() === 0) {
+        if ((new BookModel())->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));
         }
 
@@ -130,21 +130,22 @@ class BookApiController extends Controller
 
     /**
      * With response convert.
-     * 
+     *
      * @param array $resource
+     *
      * @return array
      */
     protected static function withResponse(array $resource)
     {
         return [
-            'data' => $resource['data'],
+            'data'     => $resource['data'],
             'paginate' => $resource['paginate']->getDetails(),
         ];
     }
 
     /**
      * With select.
-     * 
+     *
      * @return array
      */
     protected static function withSelect()
@@ -156,7 +157,7 @@ class BookApiController extends Controller
 
     /**
      * Rules set.
-     * 
+     *
      * @return array
      */
     protected static function rules()

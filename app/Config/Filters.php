@@ -20,7 +20,7 @@ class Filters extends BaseConfig
         'before' => [
             //'honeypot'
             'csrf' => [
-                'except' => ['api/*']
+                'except' => ['api/*'],
             ],
         ],
         'after'  => [

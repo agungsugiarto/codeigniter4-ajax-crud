@@ -20,7 +20,7 @@ namespace Config;
  */
 
 // Create a new instance of our RouteCollection class.
-/** @var  \CodeIgniter\Router\RouteCollection $routes */
+/** @var \CodeIgniter\Router\RouteCollection $routes */
 $routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -77,7 +77,7 @@ $routes->setAutoRoute(false);
 
 $routes->get('/', 'Home::index');
 
-$routes->group('api/v1', ['filter' => 'cors', 'namespace' => 'App\Controllers\Api'], function($routes) {
+$routes->group('api/v1', ['filter' => 'cors', 'namespace' => 'App\Controllers\Api'], function ($routes) {
     $routes->resource('books', [
         'controller' => 'BookApiController',
     ]);

@@ -127,10 +127,10 @@ class Logger extends BaseConfig
             'filePermissions' => 0644,
         ],
 
-        /**
-         * The ChromeLoggerHandler requires the use of the Chrome web browser
-         * and the ChromeLogger extension. Uncomment this block to use it.
-         */
+    /**
+     * The ChromeLoggerHandler requires the use of the Chrome web browser
+     * and the ChromeLogger extension. Uncomment this block to use it.
+     */
         //      'CodeIgniter\Log\Handlers\ChromeLoggerHandler' => [
         //          /*
         //           * The log levels that this handler will handle.
