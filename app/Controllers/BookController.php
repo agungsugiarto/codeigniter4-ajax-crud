@@ -103,7 +103,7 @@ class BookController extends Controller
 
     /**
      * Function datatable.
-     * 
+     *
      * @return CodeIgniter\Http\Response
      */
     public function datatable()

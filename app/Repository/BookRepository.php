@@ -8,10 +8,10 @@ use Fluent\Repository\Eloquent\BaseRepository;
 class BookRepository extends BaseRepository
 {
     protected $searchable = [
-        'title' => 'like',
-        'author' => 'orLike',
+        'title'       => 'like',
+        'author'      => 'orLike',
         'description' => 'orLike',
-        'status' => 'orLike'
+        'status'      => 'orLike',
     ];
 
     public function entity()

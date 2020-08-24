@@ -37,8 +37,9 @@ class BookModel extends Model
 
     /**
      * Get resource data.
-     * 
+     *
      * @param string $search
+     *
      * @return \CodeIgniter\Database\BaseBuilder
      */
     public function getResource(string $search = '')
@@ -46,7 +47,7 @@ class BookModel extends Model
         $builder = $this->builder()
             ->select('books.id, books.title, books.author, books.description, books.created_at, status.status')
             ->join('status', 'books.status_id = status.id');
-        
+
         $condition = empty($search)
             ? $builder
             : $builder->groupStart()

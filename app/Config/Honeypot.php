@@ -34,9 +34,9 @@ class Honeypot extends BaseConfig
     public $template = '<label>{label}</label><input type="text" name="{name}" value=""/>';
 
     /**
-	 * Honeypot container
-	 *
-	 * @var string
-	 */
-	public $container = '<div style="display:none">{template}</div>';
+     * Honeypot container.
+     *
+     * @var string
+     */
+    public $container = '<div style="display:none">{template}</div>';
 }
