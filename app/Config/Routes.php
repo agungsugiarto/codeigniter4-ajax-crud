@@ -20,7 +20,8 @@ namespace Config;
  */
 
 // Create a new instance of our RouteCollection class.
-$routes = Services::routes(true);
+/** @var  \CodeIgniter\Router\RouteCollection $routes */
+$routes = Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
 // can override as needed.
@@ -59,7 +60,7 @@ if (file_exists(SYSTEMPATH.'Config/Routes.php')) {
  * only routes that have been defined here will be available.
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('BookController');
+$routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -75,6 +76,12 @@ $routes->setAutoRoute(false);
 // route since we don't have to scan directories.
 
 $routes->get('/', 'Home::index');
+
+$routes->group('api/v1', ['filter' => 'cors', 'namespace' => 'App\Controllers\Api'], function($routes) {
+    $routes->resource('books', [
+        'controller' => 'BookApiController',
+    ]);
+});
 
 $routes->group('book', function ($routes) {
     $routes->post('datatable', 'BookController::datatable', ['as' => 'datatable']);

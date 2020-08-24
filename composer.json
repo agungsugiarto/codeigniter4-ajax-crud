@@ -7,7 +7,9 @@
     "require": {
         "php": ">=7.2",
         "codeigniter4/framework": "^4",
-        "fzaninotto/faker": "^1.9"
+        "fzaninotto/faker": "^1.9",
+        "agungsugiarto/codeigniter4-cors": "^1.0",
+        "agungsugiarto/codeigniter4-repository": "^1.0"
     },
     "require-dev": {
         "mikey179/vfsstream": "1.6.*",
