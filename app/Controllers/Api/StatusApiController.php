@@ -2,25 +2,22 @@
 
 namespace App\Controllers\Api;
 
-use App\Criteria\BookCriteria;
-use App\Models\BookModel;
-use App\Repository\BookRepository;
-use App\Traits\HashableTrait;
+use App\Models\StatusModel;
+use App\Repository\StatusRepository;
 use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Config\Config;
 use CodeIgniter\Controller;
 
-class BookApiController extends Controller
+class StatusApiController extends Controller
 {
     use ResponseTrait;
-    use HashableTrait;
 
-    protected $book;
+    protected $status;
     protected $pager;
 
     public function __construct()
     {
-        $this->book = new BookRepository();
+        $this->status = new StatusRepository();
         $this->pager = Config::get('Pager')->perPage;
     }
 
@@ -31,9 +28,8 @@ class BookApiController extends Controller
      */
     public function index()
     {
-        $resource = $this->book->scope($this->request)
-            ->withCriteria([new BookCriteria()])
-            ->paginate($this->pager, static::withSelect());
+        $resource = $this->status->scope($this->request)
+            ->paginate($this->pager);
 
         return $this->respond(static::withResponse($resource));
     }
@@ -45,10 +41,10 @@ class BookApiController extends Controller
      */
     public function show($id = null)
     {
-        $resource = $this->book->withCriteria([new BookCriteria()])->find($id, static::withSelect());
+        $resource = $this->status->find($id);
 
         if (is_null($resource)) {
-            return $this->failNotFound(sprintf('book with id %d not found', $id));
+            return $this->failNotFound(sprintf('status with id %d not found', $id));
         }
 
         return $this->respond(['data' => $resource]);
@@ -68,7 +64,7 @@ class BookApiController extends Controller
         }
 
         try {
-            $resource = $this->book->create($request);
+            $resource = $this->status->create($request);
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }
@@ -104,12 +100,12 @@ class BookApiController extends Controller
         }
 
         try {
-            $this->book->update($request, $id);
+            $this->status->update($request, $id);
         } catch (\Exception $e) {
             return $this->fail($e->getMessage());
         }
 
-        return $this->respondUpdated(['id' => $id], "book id {$id} updated");
+        return $this->respondUpdated(['id' => $id], "status id {$id} updated");
     }
 
     /**
@@ -121,13 +117,13 @@ class BookApiController extends Controller
      */
     public function delete($id = null)
     {
-        $this->respondDeleted($this->book->destroy($id));
+        $this->respondDeleted($this->status->destroy($id));
 
-        if ((new BookModel)->db->affectedRows() === 0) {
-            return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));
+        if ((new StatusModel)->db->affectedRows() === 0) {
+            return $this->failNotFound(sprintf('status with id %d not found or already deleted', $id));
         }
 
-        return $this->respondDeleted(['id' => $id], "book id {$id} deleted");
+        return $this->respondDeleted(['id' => $id], "status id {$id} deleted");
     }
 
     /**
@@ -146,18 +142,6 @@ class BookApiController extends Controller
     }
 
     /**
-     * With select.
-     *
-     * @return array
-     */
-    protected static function withSelect()
-    {
-        return [
-            'books.id', 'books.status_id', 'status.status', 'books.title', 'books.author', 'books.description', 'books.created_at', 'books.updated_at',
-        ];
-    }
-
-    /**
      * Rules set.
      *
      * @return array
@@ -165,10 +149,7 @@ class BookApiController extends Controller
     protected static function rules()
     {
         return [
-            'status_id'   => 'required|numeric',
-            'title'       => 'required|min_length[10]|max_length[60]',
-            'author'      => 'required|min_length[10]|max_length[200]',
-            'description' => 'required|min_length[10]|max_length[200]',
+            'status' => 'required|min_length[10]|max_length[200]',
         ];
     }
 }

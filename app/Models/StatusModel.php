@@ -2,18 +2,16 @@
 
 namespace App\Models;
 
+use App\Entities\StatusEntity;
 use CodeIgniter\Model;
 
 class StatusModel extends Model
 {
     protected $table = 'status';
     protected $primaryKey = 'id';
-
-    protected $returnType = 'array';
+    protected $returnType = StatusEntity::class;
     protected $useSoftDeletes = true;
-
     protected $allowedFields = ['status'];
-
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
@@ -24,4 +22,6 @@ class StatusModel extends Model
     ];
     protected $validationMessages = [];
     protected $skipValidation = false;
+
+    public $orderable = ['status'];
 }

@@ -81,6 +81,10 @@ $routes->group('api/v1', ['filter' => 'cors', 'namespace' => 'App\Controllers\Ap
     $routes->resource('books', [
         'controller' => 'BookApiController',
     ]);
+
+    $routes->resource('statuses', [
+        'controller' => 'StatusApiController',
+    ]);
 });
 
 $routes->group('book', function ($routes) {

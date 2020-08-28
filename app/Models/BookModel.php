@@ -10,7 +10,7 @@ class BookModel extends Model
     protected $table = 'books';
     protected $primaryKey = 'id';
     protected $returnType = BookEntity::class;
-    // protected $useSoftDeletes = true;
+    protected $useSoftDeletes = true;
     protected $allowedFields = ['title', 'author', 'description', 'status_id'];
     protected $useTimestamps = true;
     protected $createdField = 'created_at';
