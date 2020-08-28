@@ -119,7 +119,7 @@ class StatusApiController extends Controller
     {
         $this->respondDeleted($this->status->destroy($id));
 
-        if ((new StatusModel)->db->affectedRows() === 0) {
+        if ((new StatusModel())->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('status with id %d not found or already deleted', $id));
         }
 
