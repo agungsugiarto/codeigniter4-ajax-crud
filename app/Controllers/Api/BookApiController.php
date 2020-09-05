@@ -121,7 +121,7 @@ class BookApiController extends Controller
      */
     public function delete($id = null)
     {
-        $this->respondDeleted($this->book->destroy($id));
+        $this->book->destroy($id);
 
         if ((new BookModel)->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));

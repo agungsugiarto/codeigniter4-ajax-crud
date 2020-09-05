@@ -10,7 +10,6 @@
         "fzaninotto/faker": "^1.9",
         "agungsugiarto/codeigniter4-cors": "^1.0",
         "agungsugiarto/codeigniter4-repository": "^1.0",
-        "agungsugiarto/codeigniter4-eloquent": "^2.0",
         "hashids/hashids": "^4.0"
     },
     "require-dev": {
