@@ -5,12 +5,13 @@ namespace App\Traits;
 use CodeIgniter\Config\Config;
 use Hashids\Hashids;
 
-Trait HashableTrait
+trait HashableTrait
 {
     /**
      * Decode hash.
-     * 
+     *
      * @param string|int $hash
+     *
      * @return mixed
      */
     public function decodeHash($hash = '')
@@ -21,11 +22,12 @@ Trait HashableTrait
 
         return static::hashids()->decode($hash)[0];
     }
-    
+
     /**
      * Enocode hash.
-     * 
+     *
      * @param string $hash
+     *
      * @return mixed
      */
     public function encodeHash($hash = '')

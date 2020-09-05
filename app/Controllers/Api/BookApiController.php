@@ -123,7 +123,7 @@ class BookApiController extends Controller
     {
         $this->book->destroy($id);
 
-        if ((new BookModel)->db->affectedRows() === 0) {
+        if ((new BookModel())->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));
         }
 
