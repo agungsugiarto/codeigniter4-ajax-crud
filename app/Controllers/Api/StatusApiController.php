@@ -2,16 +2,15 @@
 
 namespace App\Controllers\Api;
 
+use App\Controllers\BaseController;
 use App\Models\StatusModel;
 use App\Repository\StatusRepository;
-use CodeIgniter\API\ResponseTrait;
+use App\Transformers\CodeIgniterPaginatorAdapter;
+use App\Transformers\Status\StatusTransformer;
 use CodeIgniter\Config\Config;
-use CodeIgniter\Controller;
 
-class StatusApiController extends Controller
+class StatusApiController extends BaseController
 {
-    use ResponseTrait;
-
     protected $status;
     protected $pager;
 
@@ -31,7 +30,7 @@ class StatusApiController extends Controller
         $resource = $this->status->scope($this->request)
             ->paginate($this->pager);
 
-        return $this->respond(static::withResponse($resource));
+        return $this->fractalCollection($resource, new StatusTransformer);
     }
 
     /**
@@ -47,7 +46,7 @@ class StatusApiController extends Controller
             return $this->failNotFound(sprintf('status with id %d not found', $id));
         }
 
-        return $this->respond(['data' => $resource]);
+        return $this->fractalItem($resource, new StatusTransformer);
     }
 
     /**

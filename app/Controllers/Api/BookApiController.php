@@ -2,19 +2,15 @@
 
 namespace App\Controllers\Api;
 
+use App\Controllers\BaseController;
 use App\Criteria\BookCriteria;
 use App\Models\BookModel;
 use App\Repository\BookRepository;
-use App\Traits\HashableTrait;
-use CodeIgniter\API\ResponseTrait;
+use App\Transformers\Book\BookTransformer;
 use CodeIgniter\Config\Config;
-use CodeIgniter\Controller;
 
-class BookApiController extends Controller
+class BookApiController extends BaseController
 {
-    use ResponseTrait;
-    use HashableTrait;
-
     protected $book;
     protected $pager;
 
@@ -33,9 +29,9 @@ class BookApiController extends Controller
     {
         $resource = $this->book->scope($this->request)
             ->withCriteria([new BookCriteria()])
-            ->paginate($this->pager, static::withSelect());
-
-        return $this->respond(static::withResponse($resource));
+            ->paginate(null, static::withSelect());
+            
+        return $this->fractalCollection($resource, new BookTransformer);
     }
 
     /**
@@ -51,7 +47,7 @@ class BookApiController extends Controller
             return $this->failNotFound(sprintf('book with id %d not found', $id));
         }
 
-        return $this->respond(['data' => $resource]);
+        return $this->fractalItem($resource, new BookTransformer);
     }
 
     /**
@@ -121,28 +117,13 @@ class BookApiController extends Controller
      */
     public function delete($id = null)
     {
-        $this->book->destroy($id);
+       $this->book->destroy($id);
 
         if ((new BookModel())->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));
         }
 
         return $this->respondDeleted(['id' => $id], "book id {$id} deleted");
-    }
-
-    /**
-     * With response convert.
-     *
-     * @param array $resource
-     *
-     * @return array
-     */
-    protected static function withResponse(array $resource)
-    {
-        return [
-            'data'     => $resource['data'],
-            'paginate' => $resource['paginate']->getDetails(),
-        ];
     }
 
     /**
@@ -153,7 +134,7 @@ class BookApiController extends Controller
     protected static function withSelect()
     {
         return [
-            'books.id', 'books.status_id', 'status.status', 'books.title', 'books.author', 'books.description', 'books.created_at', 'books.updated_at',
+            'books.id', 'books.status_id', 'books.title', 'books.author', 'status.status', 'books.description', 'books.created_at', 'books.updated_at',
         ];
     }
 

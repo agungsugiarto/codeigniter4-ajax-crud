@@ -10,7 +10,8 @@
         "fzaninotto/faker": "^1.9",
         "agungsugiarto/codeigniter4-cors": "^1.0",
         "agungsugiarto/codeigniter4-repository": "^1.0",
-        "hashids/hashids": "^4.0"
+        "hashids/hashids": "^4.0",
+        "spatie/fractalistic": "^2.9"
     },
     "require-dev": {
         "mikey179/vfsstream": "1.6.*",

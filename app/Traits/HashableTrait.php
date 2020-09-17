@@ -2,11 +2,15 @@
 
 namespace App\Traits;
 
+use CodeIgniter\API\ResponseTrait;
 use CodeIgniter\Config\Config;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use Hashids\Hashids;
 
 trait HashableTrait
 {
+    use ResponseTrait;
+
     /**
      * Decode hash.
      *
@@ -14,13 +18,15 @@ trait HashableTrait
      *
      * @return mixed
      */
-    public function decodeHash($hash = '')
+    public function decodeHash(string $hash)
     {
-        if (empty($hash)) {
-            throw new \Exception('Invalid hashed id.');
+        try {
+            $decoce = static::hashids()->decode($hash);
+        } catch (\Exception $e) {
+            return PageNotFoundException::forMethodNotFound($e->getMessage());
         }
 
-        return static::hashids()->decode($hash)[0];
+        return $decoce[0];
     }
 
     /**
@@ -30,13 +36,15 @@ trait HashableTrait
      *
      * @return mixed
      */
-    public function encodeHash($hash = '')
+    public function encodeHash(string $hash)
     {
-        if (empty($hash)) {
-            throw new \Exception('Invalid hashed id.');
+        try {
+            $encode = static::hashids()->encode($hash);
+        } catch (\Exception $e) {
+            return PageNotFoundException::forMethodNotFound($e->getMessage());
         }
 
-        return static::hashids()->encode($hash);
+        return $encode;
     }
 
     /**
