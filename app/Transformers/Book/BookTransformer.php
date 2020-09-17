@@ -7,17 +7,18 @@ use App\Transformers\BaseTransformer;
 class BookTransformer extends BaseTransformer
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getResourceKey(): string
     {
         return 'books';
     }
-    
+
     /**
-     * transform
+     * transform.
      *
      * @param $books
+     *
      * @return array
      */
     public function transform($books)

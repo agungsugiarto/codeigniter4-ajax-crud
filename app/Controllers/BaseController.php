@@ -23,7 +23,7 @@ use Spatie\Fractalistic\Fractal;
 class BaseController extends Controller
 {
     use ResponseTrait;
-    
+
     /**
      * An array of helpers to be loaded automatically upon
      * class instantiation. These helpers will be available
@@ -48,13 +48,14 @@ class BaseController extends Controller
     }
 
     /**
-     * @param mixed $data
+     * @param mixed                                             $data
      * @param string|callable|\App\Transformers\BaseTransformer $transformer
+     *
      * @return \Spatie\Fractal\Fractal
      */
     public function fractalCollection($data, BaseTransformer $transformer)
     {
-       $fractal = Fractal::create($data['data'], $transformer, JsonApiSerializer::class)
+        $fractal = Fractal::create($data['data'], $transformer, JsonApiSerializer::class)
             ->withResourceName($transformer->getResourceKey())
             ->paginateWith(new CodeIgniterPaginatorAdapter($data['paginate']));
 
@@ -62,13 +63,14 @@ class BaseController extends Controller
     }
 
     /**
-     * @param mixed $data
+     * @param mixed                                             $data
      * @param string|callable|\App\Transformers\BaseTransformer $transformer
+     *
      * @return \Spatie\Fractal\Fractal
      */
     public function fractalItem($data, BaseTransformer $transformer)
     {
-       $fractal = Fractal::create($data, $transformer, JsonApiSerializer::class)
+        $fractal = Fractal::create($data, $transformer, JsonApiSerializer::class)
             ->withResourceName($transformer->getResourceKey());
 
         return $this->respond($fractal);

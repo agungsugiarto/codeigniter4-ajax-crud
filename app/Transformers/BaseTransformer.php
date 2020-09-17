@@ -8,10 +8,10 @@ use League\Fractal\TransformerAbstract;
 abstract class BaseTransformer extends TransformerAbstract
 {
     use HashableTrait;
-    
+
     /**
      * Resource key name.
-     * 
+     *
      * @return string
      */
     abstract public function getResourceKey(): string;
