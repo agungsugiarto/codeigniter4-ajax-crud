@@ -30,8 +30,8 @@ class BookApiController extends BaseController
         $resource = $this->book->scope($this->request)
             ->withCriteria([new BookCriteria()])
             ->paginate(null, static::withSelect());
-            
-        return $this->fractalCollection($resource, new BookTransformer);
+
+        return $this->fractalCollection($resource, new BookTransformer());
     }
 
     /**
@@ -47,7 +47,7 @@ class BookApiController extends BaseController
             return $this->failNotFound(sprintf('book with id %d not found', $id));
         }
 
-        return $this->fractalItem($resource, new BookTransformer);
+        return $this->fractalItem($resource, new BookTransformer());
     }
 
     /**
@@ -117,7 +117,7 @@ class BookApiController extends BaseController
      */
     public function delete($id = null)
     {
-       $this->book->destroy($id);
+        $this->book->destroy($id);
 
         if ((new BookModel())->db->affectedRows() === 0) {
             return $this->failNotFound(sprintf('book with id %d not found or already deleted', $id));

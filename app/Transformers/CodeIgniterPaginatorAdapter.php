@@ -9,15 +9,16 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
 {
     /**
      * The pagiantor.
-     * 
+     *
      * @var \CodeIgniter\Pager\Pager
      */
     protected $paginator;
-    
+
     /**
      * Create a new illuminate pagination adapter.
      *
      * @param \CodeIgniter\Pager\Pager $paginator
+     *
      * @return void
      */
     public function __construct(Pager $paginator)
@@ -26,7 +27,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCurrentPage()
     {
@@ -34,7 +35,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLastPage()
     {
@@ -42,7 +43,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTotal()
     {
@@ -51,7 +52,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCount()
     {
@@ -59,7 +60,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPerPage()
     {
@@ -67,7 +68,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUrl($page)
     {
@@ -76,7 +77,7 @@ class CodeIgniterPaginatorAdapter implements PaginatorInterface
 
     /**
      * Get the paginator instance.
-     * 
+     *
      * @return \CodeIgniter\Pager\Pager
      */
     public function getPaginator()
